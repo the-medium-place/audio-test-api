@@ -24,7 +24,7 @@ const checkAuthStatus = request => {
             return data
         }
     });
-    console.log("loggedInUser: ",loggedInUser)
+    // console.log("loggedInUser: ",loggedInUser)
     return loggedInUser
 }
 
@@ -53,11 +53,6 @@ router.post('/', ({ body },res) => {
 // update user info
 router.put('/:id', ({ body, params }, res) => {
     const userId=params.id
-    console.log(body)
-    // const updateBody = {
-
-    // }
-
     db.User.update(body,{
         where:{
             id: userId
@@ -76,7 +71,7 @@ router.post("/login", (req, res) => {
             }
         })
         .then((dbUser) => {
-            if (!dbUser.username) {
+            if (!dbUser) {
                 res.status(404).send('could not find user');
             }
             if (bcrypt.compareSync(req.body.password, dbUser.password)) {
@@ -103,16 +98,13 @@ router.get('/secretProfile', (req,res) => {
     if (!loggedInUser) {
         return res.status(401).send("invalid token")
     }
-    // console.log("loggedInUser, line 82: ", loggedInUser);
     db.User.findOne({
         where: {
             id: loggedInUser.id
         },
     }).then(dbUser => {
-        console.log('dbUser: ', dbUser)
         res.json(dbUser)
     }).catch(err => {
-        // console.log(err);
         res.status(500).send("an error occured please try again later");
     })
 })
