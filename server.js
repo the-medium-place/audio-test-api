@@ -22,8 +22,8 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const CORS_ORIGIN = "http://localhost:3000";
-// const CORS_ORIGIN = 'http://zgstowell-audiology.herokuapp.com'
+// const CORS_ORIGIN = "http://localhost:3000";
+const CORS_ORIGIN = 'http://zgstowell-audiology.herokuapp.com'
 app.use(cors({
     origin: [CORS_ORIGIN],
     credentials: true
