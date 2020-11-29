@@ -31,7 +31,9 @@ const checkAuthStatus = request => {
 
 // get all user info
 router.get("/", (req, res) => {
-    db.User.findAll().then(dbUsers => {
+    db.User.findAll({
+        include: [db.AudioBlob]
+    }).then(dbUsers => {
         res.json(dbUsers);
     }).catch(err => {
         // console.log(err);
@@ -72,7 +74,7 @@ router.post("/login", (req, res) => {
         })
         .then((dbUser) => {
             if (!dbUser) {
-                res.status(404).send('could not find user');
+                res.status(404).send('could not find user\nMake sure your username is correct');
             }
             if (bcrypt.compareSync(req.body.password, dbUser.password)) {
                 const userTokenInfo = {
@@ -102,7 +104,9 @@ router.get('/secretProfile', (req,res) => {
         where: {
             id: loggedInUser.id
         },
+        include: [db.AudioBlob]
     }).then(dbUser => {
+        console.log(dbUser)
         res.json(dbUser)
     }).catch(err => {
         res.status(500).send("an error occured please try again later");
