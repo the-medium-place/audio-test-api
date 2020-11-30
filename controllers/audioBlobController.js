@@ -38,5 +38,14 @@ router.post('/:id', ({ body, params }, res) => {
     })
 })
 
+// delete audioBlob
+router.delete('/delete/:id', (req, res) => {
+    db.AudioBlob.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+})
+
 
 module.exports = router
