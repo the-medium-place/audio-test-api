@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes) {
 
     const AudioBlob = sequelize.define('AudioBlob', {
 
-        blobObject: DataTypes.JSON,
+        audioURL: DataTypes.STRING,
 
         recordingName: DataTypes.STRING
 

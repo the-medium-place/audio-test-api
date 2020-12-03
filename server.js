@@ -22,10 +22,10 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// const CORS_ORIGIN = ["http://localhost:3000"];
-const CORS_ORIGIN = ['https://zgstowell-audiology.herokuapp.com']
+const CORS_ORIGIN = ["http://localhost:3000"];
+// const CORS_ORIGIN = ['https://zgstowell-audiology.herokuapp.com']
 app.use(cors({
-    origin: [CORS_ORIGIN],
+    origin: CORS_ORIGIN,
     credentials: true
 }));
 
@@ -40,7 +40,7 @@ app.use('/',allRoutes)
 // LISTENER
 // =============================================================================
 
-db.sequelize.sync({ force: false }).then(function () {
+db.sequelize.sync({ force: true }).then(function () {
     app.listen(PORT, function () {
         console.log("App listening on PORT " + PORT);
     });
