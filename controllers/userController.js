@@ -60,7 +60,10 @@ router.put('/:id', ({ body, params }, res) => {
             id: userId
         }
     }).then(dbResult => res.json(dbResult))
-    .catch(err => console.log(err))
+    .catch(err => {
+        console.log(err)
+        res.send(err)
+    })
 
 })
 
@@ -98,7 +101,7 @@ router.post("/login", (req, res) => {
 router.get('/secretProfile', (req,res) => {
     const loggedInUser = checkAuthStatus(req)
     if (!loggedInUser) {
-        return res.status(401).send("invalid token")
+        return res.status(401).send("Your token has expired - please log in again")
     }
     db.User.findOne({
         where: {

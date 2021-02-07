@@ -4,7 +4,11 @@ module.exports = function (sequelize, DataTypes) {
 
         audioURL: DataTypes.STRING,
 
-        recordingName: DataTypes.STRING
+        recordingName: DataTypes.STRING,
+
+        cloudinaryId: DataTypes.STRING,
+
+        audioBlob: DataTypes.BLOB
 
     });
 
